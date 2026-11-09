@@ -2,9 +2,12 @@
 
 ![logo](logo/logo.png)
 
-**FPCaller** calls broad chromatin domains enriched in FANCY-sorted DNA-seq compared with a matched input. Examples are nucleolus-associated domains (NADs) from nucleolar sorts and speckle-associated domains (SADs) from nuclear-speckle sorts.
+> Developed for the manuscript **"Dual and latent condensate localization signatures encoded in intrinsically disordered protein regions"**.
+> Author and contact: **Alexandre P. Magalhaes**, Email: magalhae@molgen.mpg.de
 
-It takes two binned coverage bedGraphs (FANCY and input) and returns a BED file of enriched domains, summary statistics and a QC plot.
+**FPCaller** calls broad chromatin domains enriched in NuFANCI-sorted DNA-seq compared with a matched input. Examples are nucleolus-associated domains (NADs) from nucleolar sorts and speckle-associated domains (SADs) from nuclear-speckle sorts.
+
+It takes two binned coverage bedGraphs (NuFANCI and input) and returns a BED file of enriched domains, summary statistics and a QC plot.
 
 ![chr19 example](docs/example_chr19_qc.png)
 *HCT116 NPM1-antibody nucleolar sort, chr19 (bundled test data). Grey: called domains. Hatched: centromere interval excluded by the filter.*
@@ -22,7 +25,7 @@ Requirements: Python ≥ 3.9, numpy, pandas, matplotlib.
 ## Quick start
 
 ```bash
-fpcaller --fancy FANCY.bedgraph --input INPUT.bedgraph --sample my_sample
+fpcaller --fancy NuFANCI.bedgraph --input INPUT.bedgraph --sample my_sample
 ```
 
 Run on the bundled test data:
@@ -36,18 +39,18 @@ bash examples/run_example.sh
 Two 4-column bedGraphs (`chrom  start  end  value`), plain or gzip-compressed, with **identical binning**. Only bins present in both files are used. Example of how they can be made with deepTools:
 
 ```bash
-bamCoverage -b FANCY.bam -o FANCY.bedgraph -of bedgraph --binSize 1000 --smoothLength 50000 -p 8
+bamCoverage -b NuFANCI.bam -o NuFANCI.bedgraph -of bedgraph --binSize 1000 --smoothLength 50000 -p 8
 bamCoverage -b INPUT.bam -o INPUT.bedgraph -of bedgraph --binSize 1000 --smoothLength 50000 -p 8
 ```
 
-The FANCY study used 1 kb bins with 50 kb smoothing (`*.w50k_b1k.bedgraph`), aligned to T2T-CHM13 v2.0.
+The NuFANCI study used 1 kb bins with 50 kb smoothing (`*.w50k_b1k.bedgraph`), aligned to T2T-CHM13 v2.0.
 
 ## Method
 
 For each sample:
 
 1. **Chromosome filter:** keep autosomes (`chr1`–`chrN`; change with `--chrom-regex`).
-2. **log2 CPM ratio, per chromosome:** `log2((FANCY+1)/Σ(FANCY+1)) − log2((INPUT+1)/Σ(INPUT+1))`.
+2. **log2 CPM ratio, per chromosome:** `log2((NuFANCI+1)/Σ(NuFANCI+1)) − log2((INPUT+1)/Σ(INPUT+1))`.
 3. **Baseline correction:** for each chromosome, fit a polynomial (degree 3) of the ratio against position and subtract it. This removes arm-scale trends.
 4. **Smoothing:** rolling mean over 5 bins.
 5. **z-score:** genome-wide (population SD).
@@ -83,7 +86,7 @@ For each sample:
 ```python
 from fpcaller import run_fpcaller
 
-res = run_fpcaller("FANCY.bedgraph", "INPUT.bedgraph", genome="chm13")
+res = run_fpcaller("NuFANCI.bedgraph", "INPUT.bedgraph", genome="chm13")
 res.domains      # DataFrame: Chromosome, Start, End
 res.signal       # per-bin table with ratio, corrected ratio and z-score
 res.stats        # dict of summary statistics
@@ -97,7 +100,7 @@ Default mode fixes three edge effects of the original `--legacy` has: the droppe
 
 ## Notes and limitations
 
-- **Chromosome ends:** the cubic baseline can bend at chromosome ends and give positive z-scores where FANCY is not above input (e.g. chr19 0–4 Mb in the example). Check domains at chromosome ends in the QC plot.
+- **Chromosome ends:** the cubic baseline can bend at chromosome ends and give positive z-scores where NuFANCI is not above input (e.g. chr19 0–4 Mb in the example). Check domains at chromosome ends in the QC plot.
 - **Other genomes:** only CHM13 and hg38 centromeres are built in. For other genomes, use `--genome none` and filter afterwards with `bedtools intersect -v`, or add coordinates to `src/fpcaller/centromeres.py`.
 
 ## Tests
@@ -107,11 +110,16 @@ pip install ".[test]"
 pytest
 ```
 
-Test data: chr19 of the HCT116 NPM1-antibody nucleolar FANCY sort (replicate 1) and its input, from the FANCY study (GEO: GSE353840).
+Test data: chr19 of the HCT116 NPM1-antibody nucleolar NuFANCI sort (replicate 1) and its input, from the NuFANCI study (GEO: GSE353840).
 
 ## Citation
 
-If you use FPCaller, please cite: *FANCY study, TBD.*
+If you use FPCaller, please cite the manuscript:
+
+> Dual and latent condensate localization signatures encoded in intrinsically disordered protein regions.
+> (Journal, year and DOI: TBD)
+
+Author: **Alexandre P. Magalhaes**, Email: magalhae@molgen.mpg.de
 
 ## License
 

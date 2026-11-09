@@ -2,7 +2,7 @@
 
 ## 1.0.0 (2026-11-09)
 
-First release as a Python package. It is based on the `FPCaller.py` script used for the FANCY study.
+First release as a Python package. It is based on the `FPCaller.py` script used for the NuFANCI study.
 
 ### Added
 - Installable package (`pip install .`) with an `fpcaller` command and a Python API (`run_fpcaller`).
@@ -19,7 +19,7 @@ First release as a Python package. It is based on the `FPCaller.py` script used 
 - **Rolling mean across chromosomes:** the 5-bin rolling mean ran over all chromosomes concatenated, so the first bins of each chromosome were averaged with the end of the previous one. It now runs per chromosome.
 - **Domains spanning two chromosomes:** a run of positive bins was not split at a chromosome change. When the last bins of one chromosome and the first bins of the next were both positive, the resulting "domain" had an end coordinate on the next chromosome and was then lost by the size filter. Domains reaching chromosome ends are now called correctly.
 - **hg38 centromeres:** the table was a Python dict with repeated keys, so only the last interval per chromosome was used. All intervals are now checked.
-- **Swapped labels:** the start-up message printed the FANCY and input file names swapped.
+- **Swapped labels:** the start-up message printed the NuFANCI and input file names swapped.
 - **Plot legend labels:** the input track and the log2 ratio were mislabelled.
 
 ### Effect of the fixes on real data

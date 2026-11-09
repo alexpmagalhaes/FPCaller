@@ -13,12 +13,12 @@ from .io import DEFAULT_CHROM_REGEX, write_bed, write_signal_bedgraph
 def build_parser():
     p = argparse.ArgumentParser(
         prog="fpcaller",
-        description="Call FANCY-enriched domains (e.g. NADs, SADs) from binned "
-                    "DNA-seq coverage of a FANCY sample and its matched input.",
+        description="Call NuFANCI-enriched domains (e.g. NADs, SADs) from binned "
+                    "DNA-seq coverage of a NuFANCI sample and its matched input.",
     )
     req = p.add_argument_group("required")
     req.add_argument("-f", "--fancy", required=True,
-                     help="bedGraph of the FANCY sample (plain or .gz)")
+                     help="bedGraph of the NuFANCI sample (plain or .gz)")
     req.add_argument("-i", "--input", required=True,
                      help="bedGraph of the matched input (same binning)")
     req.add_argument("-s", "--sample", required=True,
@@ -55,7 +55,7 @@ def main(argv=None):
     prefix = os.path.join(args.outdir, args.sample)
 
     print(f"FPCaller {__version__}{' (legacy mode)' if args.legacy else ''}")
-    print(f"  FANCY : {args.fancy}")
+    print(f"  NuFANCI : {args.fancy}")
     print(f"  Input : {args.input}")
     print(f"  Sample: {args.sample}")
 

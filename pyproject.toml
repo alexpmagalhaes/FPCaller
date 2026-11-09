@@ -5,7 +5,7 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "fpcaller"
 version = "1.0.0"
-description = "Call FANCY-enriched chromatin domains (NADs, SADs) from binned DNA-seq coverage"
+description = "Call NuFANCI-enriched chromatin domains (NADs, SADs) from binned DNA-seq coverage"
 readme = "README.md"
 license = { file = "LICENSE" }
 requires-python = ">=3.9"

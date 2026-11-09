@@ -1,7 +1,7 @@
 """Centromere coordinates and the centromere filter.
 
 Domains overlapping a centromere are removed because centromeric satellite
-arrays are poorly mappable and give unreliable FANCY/input ratios.
+arrays are poorly mappable and give unreliable NuFANCI/input ratios.
 
 Coordinates are 0-based, half-open intervals (BED convention), taken from the
 original FPCaller.py:

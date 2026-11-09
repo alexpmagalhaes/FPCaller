@@ -16,9 +16,9 @@ mpl.rcParams["font.sans-serif"] = ["Arial", "Liberation Sans", "DejaVu Sans"]
 
 def plot_chromosome(signal, domains, chrom, out_prefix, genome=None,
                     formats=("svg", "png", "pdf")):
-    """Plot FANCY/input coverage, log2 ratio, z-score and domains for one chromosome.
+    """Plot NuFANCI/input coverage, log2 ratio, z-score and domains for one chromosome.
 
-    Left axis: FANCY and input coverage.
+    Left axis: NuFANCI and input coverage.
     Right axis: log2 CPM ratio and z-score (zero line in red).
     Grey bands: called domains.
     Hatched band: centromere interval(s) excluded by the filter (if ``genome``).
@@ -32,7 +32,7 @@ def plot_chromosome(signal, domains, chrom, out_prefix, genome=None,
 
     x = sub["Start"] / 1e6  # Mb
     fig, ax = plt.subplots(figsize=(13, 5))
-    ax.plot(x, sub["FANCY"], color="#1f4e9c", lw=0.8, label="FANCY")
+    ax.plot(x, sub["FANCY"], color="#1f4e9c", lw=0.8, label="NuFANCI")
     ax.plot(x, sub["INPUT"], color="#e377c2", lw=0.8, label="Input")
     ax.set_xlabel(f"{chrom} position (Mb)")
     ax.set_ylabel("Coverage")

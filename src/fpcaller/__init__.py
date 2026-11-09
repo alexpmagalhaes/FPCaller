@@ -1,6 +1,6 @@
-"""FPCaller: call FANCY-enriched chromatin domains from binned DNA-seq coverage.
+"""FPCaller: call NuFANCI-enriched chromatin domains from binned DNA-seq coverage.
 
-FPCaller compares a FANCY-sorted DNA-seq sample with its matched input and
+FPCaller compares a NuFANCI-sorted DNA-seq sample with its matched input and
 reports broad enriched domains, for example nucleolus-associated domains (NADs)
 or speckle-associated domains (SADs).
 

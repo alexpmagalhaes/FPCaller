@@ -1,8 +1,8 @@
 """Core FPCaller algorithm.
 
-Pipeline (one FANCY sample against its matched input):
+Pipeline (one NuFANCI sample against its matched input):
 
-1. ``log2_cpm_ratio``    per-chromosome log2 CPM ratio FANCY / input
+1. ``log2_cpm_ratio``    per-chromosome log2 CPM ratio NuFANCI / input
 2. ``baseline_correct``  remove broad trends per chromosome with a polynomial
                          fit, then smooth with a rolling mean
 3. ``zscore``            genome-wide z-score of the smoothed, corrected ratio
@@ -15,7 +15,7 @@ Pipeline (one FANCY sample against its matched input):
 
 Legacy mode
 -----------
-``legacy=True`` reproduces the original FPCaller.py used for the FANCY paper
+``legacy=True`` reproduces the original FPCaller.py used for the NuFANCI paper
 exactly. It differs from the default in three ways that only affect bins at
 chromosome edges:
 
@@ -41,7 +41,7 @@ from .stats import domain_size_stats, mean_inter_domain_distance
 # Step 1: log2 CPM ratio
 # ---------------------------------------------------------------------------
 def log2_cpm_ratio(fancy, inp, legacy=False):
-    """Per-chromosome log2 CPM ratio of FANCY over input.
+    """Per-chromosome log2 CPM ratio of NuFANCI over input.
 
     For every chromosome separately::
 
@@ -53,7 +53,7 @@ def log2_cpm_ratio(fancy, inp, legacy=False):
     Parameters
     ----------
     fancy, inp : DataFrame
-        Output of ``read_bedgraph`` with value columns ``FANCY`` and ``INPUT``.
+        Output of ``read_bedgraph`` with value columns ``FANCY`` (NuFANCI sample) and ``INPUT``.
         Only bins present in both files are kept (inner join on coordinates).
     legacy : bool
         Use Python's built-in ``sum`` (as the original script did) so floating
@@ -226,7 +226,7 @@ def run_fpcaller(fancy_path, input_path, genome="chm13",
     Parameters
     ----------
     fancy_path, input_path : str
-        Binned coverage bedGraphs of the FANCY sample and its input
+        Binned coverage bedGraphs of the NuFANCI sample and its input
         (same binning, e.g. deepTools ``bamCoverage`` output).
     genome : {"chm13", "hg38", None}
         Centromere set used to remove domains; ``None`` disables the filter.

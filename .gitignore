@@ -1,3 +1,13 @@
 src/.DS_Store
 tests/.DS_Store
 tests/data/.DS_Store
+.DS_Store
+**/.DS_Store
+__pycache__/
+*.py[cod]
+*.egg-info/
+build/
+dist/
+.pytest_cache/
+.venv/
+results/
