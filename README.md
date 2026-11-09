@@ -1,6 +1,6 @@
 # FPCaller
 
-![logo](logo/logo.jpeg)
+![logo](logo/logo.png)
 
 **FPCaller** calls broad chromatin domains enriched in FANCY-sorted DNA-seq compared with a matched input. Examples are nucleolus-associated domains (NADs) from nucleolar sorts and speckle-associated domains (SADs) from nuclear-speckle sorts.
 
